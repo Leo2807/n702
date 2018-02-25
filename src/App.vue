@@ -1,22 +1,70 @@
 <template>
   <div id="app">
-    <header>
-      <span>Vue.js PWA</span>
-    </header>
     <main>
-      <img src="./assets/logo.png" alt="Vue.js PWA">
-      <hello></hello>
+      <h1>N702</h1>
+      <p>Dit document bespreekt de ontwikkeling van de N702 tussen het Kolonel Dusartplein en de R71 tussen 1971 en 2017.</p>
+      <evolution v-for="evolution in evolutions" v-bind="evolution" />
     </main>
+    <footer>
+      Foto's: ©2017 <a href=https://www.geopunt.be>www.geopunt.be</a>
+    </footer>
   </div>
 </template>
 
 <script>
-import Hello from './components/Hello'
+
+import Evolution from './components/Evolution.vue'
 
 export default {
   name: 'app',
   components: {
-    Hello
+    Evolution
+  },
+  data () {
+    return {
+      swiperOptions: {
+        followFinger: false,
+        allowTouchMove: false,
+        resistanceRatio: 1,
+
+        navigation: {
+          nextEl: '.next',
+          prevEl: '.prev'
+        }
+      },
+      evolutions: [
+        {
+          from: '2017.jpg',
+          to: '1971.png',
+          text: 'In 1971 zie je dat de N702 nog niet doorgetrokken was. Daarnaast is het Kapermolenpark nog niet aangelegd en is er weinig bebouwing langs de R71.',
+          title: '1971'
+        },
+        {
+          from: '1971.png',
+          to: '1979-1990.jpg',
+          text: 'In de jaren ‘80 is de N702 al doorgetrokken naar de kleine ring, de R70, die toen nog een 2×2-rijstrookconfiguratie had. Men is ook al begonnen aan de grenslandhallen. Het kapermolenpark en -zwembad zijn ook al aangelegd. Tot slot is er ook meer bebouwing aan de buitenkant van de grote ring.',
+          title: '1979-1990'
+        },
+        {
+          from: '1979-1990.jpg',
+          to: '2000-2003.png',
+          title: '2000-2003',
+          text: 'Tegen 2000-2003 zijn de grenslandhallen met één gebouw uitgebreid, is de Japanse tuin ook aangelegd. Op de foto kan je het niet goed zien, maar de kleine ring is omgebouwd tot een eenrichtingsstraat met twee rijstroken.'
+        },
+        {
+          from: '2000-2003.png',
+          to: '2017.jpg',
+          title: '2017',
+          text: 'Tegen 2017 zijn de grenslandhallen uitgebreid met de Ethiasarena en Plopsaland. De N702 wordt nu voor de helft als parkeerstrook gebruikt waardoor er nog een 2×1-weg overblijft. Het Kapermolenzwembad is verkleind, en op de vrijgekomen plaats is nu een bouwwerf aanwezig.'
+        }
+      ].map((ev) => {
+        return {
+          ...ev,
+          from: `/static/img/geopunt/Geopunt Vlaanderen ${ev.from}`,
+          to: `/static/img/geopunt/Geopunt Vlaanderen ${ev.to}`
+        }
+      })
+    }
   }
 }
 </script>
@@ -36,24 +84,15 @@ body {
 main {
   text-align: center;
   margin-top: 40px;
+  max-width: 50rem;
+  margin: auto;
 }
 
-header {
-  margin: 0;
-  height: 56px;
-  padding: 0 16px 0 24px;
-  background-color: #35495E;
-  color: #ffffff;
+footer {
+  text-align: center;
+  background: #2c3e50;
+  padding: 2rem;
+  color: #4DBA87;
 }
 
-header span {
-  display: block;
-  position: relative;
-  font-size: 20px;
-  line-height: 1;
-  letter-spacing: .02em;
-  font-weight: 400;
-  box-sizing: border-box;
-  padding-top: 16px;
-}
 </style>
